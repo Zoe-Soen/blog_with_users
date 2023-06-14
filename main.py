@@ -16,7 +16,7 @@ from forms import CreatePostForm, CommentForm, RegisterForm, LoginForm
 TODAY = dt.now().strftime("%Y-%m-%d")
 # ------------------------------------------------------------------------------------------------
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 # 实现富文本编辑：
 ckeditor = CKEditor(app)
@@ -41,8 +41,10 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 # ------------------------------------------------------------------------------------------------
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ['SQLALCHEMY_TRACK_MODIFICATIONS']
+if os.environ.get('LOCAL') == True:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI_LOCAL')
+else:
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ.get('RENDER_DATABASE_URL')
 db = SQLAlchemy(app)
 
 # 定义 ORM 数据库模型：
@@ -259,4 +261,3 @@ def delete_post(post_id):
 # ------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
     app.run(debug=True)
-
