@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 from datetime import date
 from datetime import datetime as dt
 from flask import Flask, render_template, redirect, url_for, flash, g, request, abort
@@ -13,11 +12,11 @@ from flask_gravatar import Gravatar # 用于给博客网站内添加用户头像
 from functools import wraps
 from forms import CreatePostForm, CommentForm, RegisterForm, LoginForm
 
-load_dotenv("./venv/.env")
+os.chdir("/Users/Zoe.Su/Documents/Zoe的学习资料/Python/100 days of Code- The Complete Python Pro Bootcamp for 2023/exercise code/day-69-Blog_vs_users/blog_with_users/")
 TODAY = dt.now().strftime("%Y-%m-%d")
 # ------------------------------------------------------------------------------------------------
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 
 # 实现富文本编辑：
 ckeditor = CKEditor(app)
@@ -42,8 +41,8 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 # ------------------------------------------------------------------------------------------------
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ['SQLALCHEMY_TRACK_MODIFICATIONS']
 db = SQLAlchemy(app)
 
 # 定义 ORM 数据库模型：
