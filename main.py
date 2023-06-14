@@ -12,7 +12,7 @@ from flask_gravatar import Gravatar # 用于给博客网站内添加用户头像
 from functools import wraps
 from forms import CreatePostForm, CommentForm, RegisterForm, LoginForm
 
-os.chdir("/Users/Zoe.Su/Documents/Zoe的学习资料/Python/100 days of Code- The Complete Python Pro Bootcamp for 2023/exercise code/day-69-Blog_vs_users/blog_with_users/")
+
 TODAY = dt.now().strftime("%Y-%m-%d")
 # ------------------------------------------------------------------------------------------------
 app = Flask(__name__)
