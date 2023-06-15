@@ -44,7 +44,8 @@ def load_user(user_id):
 if os.environ.get('LOCAL') == True:
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI_LOCAL')
 else:
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ.get('RENDER_DATABASE_URL')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('RENDER_DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
 db = SQLAlchemy(app)
 
 # 定义 ORM 数据库模型：
